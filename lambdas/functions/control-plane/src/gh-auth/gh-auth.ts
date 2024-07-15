@@ -18,7 +18,6 @@ import { axiosFetch } from '../axios/fetch-override';
 
 const logger = createChildLogger('gh-auth');
 
-
 export async function createOctoClient(token: string, ghesApiUrl = ''): Promise<Octokit> {
   const CustomOctokit = Octokit.plugin(throttling);
   const ocktokitOptions: OctokitOptions = {
@@ -39,9 +38,7 @@ export async function createOctoClient(token: string, ghesApiUrl = ''): Promise<
         );
       },
       onSecondaryRateLimit: (retryAfter, options) => {
-        logger.warn(
-          `GitHub rate limit: SecondaryRateLimit detected for request ${options.method} ${options.url}`,
-        );
+        logger.warn(`GitHub rate limit: SecondaryRateLimit detected for request ${options.method} ${options.url}`);
       },
     },
   });
